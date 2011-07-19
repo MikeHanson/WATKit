@@ -7,9 +7,9 @@ using WATKit.Exceptions;
 namespace WATKit
 {
 	/// <summary>
-	/// Provides extension methods that create a fluent api for UI automation
+	/// Provides extension methods for find operations within the fluent automation api
 	/// </summary>
-	public static class FluentAutomationExtensions
+	public static class FluentAutomationFindExtensions
 	{
 		/// <summary>
 		/// Sets up a new find operation
@@ -22,7 +22,7 @@ namespace WATKit
 		{
 			owner.FindSettings = new FindSettings
 									{
-										Parent = owner,
+										SearchRoot = owner,
 										FindType = FindType.NotSet,
 										FindScope = FindScope.NotSet,
 									};
@@ -254,22 +254,25 @@ namespace WATKit
 		{
 			ExecuteWaitFor(findSettings);
 
+			var scope = GetTreeScope(findSettings);
 			var endTime = DateTime.Now.Add(findSettings.RetryTime);
-			var element = findSettings.Parent.AutomationElement.FindFirst(GetTreeScope(findSettings), condition);
+			var element = findSettings.SearchRoot.AutomationElement.FindFirst(scope, condition);
 			while(element == null && DateTime.Now <= endTime)
 			{
-				element = findSettings.Parent.AutomationElement.FindFirst(GetTreeScope(findSettings), condition);
+				element = findSettings.SearchRoot.AutomationElement.FindFirst(scope, condition);
 			}
+						
+			findSettings.IsOwnerProxy = element == null || Convert.ToBoolean(element.GetCurrentPropertyValue(AutomationElement.IsOffscreenProperty));
 
-			if(element != null)
-			{
-				return new TControl
+			var result = new TControl
 				       	{
-				       		AutomationElement = element
+				       		AutomationElement = element,
+							IsVisible = !findSettings.IsOwnerProxy,
+							FindSettings = findSettings
 				       	};
-			}
 
-			return null;
+			result.ValidateControlType();
+			return result;
 		}
 
 		/// <summary>
@@ -299,6 +302,11 @@ namespace WATKit
 			return ExecuteFind<TControl>(findSettings, condition);
 		}
 
+		/// <summary>
+		/// Gets the tree scope.
+		/// </summary>
+		/// <param name="findSettings">The find settings.</param>
+		/// <returns>The treescope setting to be used based on the find scope of the find settings</returns>
 		private static TreeScope GetTreeScope(FindSettings findSettings)
 		{
 			switch(findSettings.FindScope)
@@ -317,5 +325,25 @@ namespace WATKit
 					throw new FindScopeNotSetException();
 			}
 		}
+		
+		/// <summary>
+		/// Validates the type of the control.
+		/// </summary>
+		/// <param name="source">The source.</param>
+		private static void ValidateControlType(this AutomationControl control)
+		{
+			var typeName = control.GetType().Name;
+
+			if(control.AutomationElement == null || typeName == typeof(AutomationControl).Name)
+			{
+				return;
+			}
+
+			if(control.ControlType.LocalizedControlType != control.AutomationElement.Current.ControlType.LocalizedControlType)
+			{
+				throw new IncompatibleElementException(control.AutomationElement.Current.ControlType.LocalizedControlType, control.ControlType.LocalizedControlType);
+			}
+		}
 	}
 }
+ 

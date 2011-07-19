@@ -1,82 +1,58 @@
 ﻿using System;
 using System.Windows.Automation;
+using ControlType = System.Windows.Automation.ControlType;
 
 namespace WATKit.Controls
 {
 	public class AutomationControl
-	{
+	{		
 		/// <summary>
 		/// Gets the underlying automation element.
 		/// </summary>
-		public AutomationElement AutomationElement{get; internal set;}
+		public AutomationElement AutomationElement { get; internal set; }
+
+		/// <summary>
+		/// Gets or sets the type of the control.
+		/// </summary>
+		/// <value>
+		/// The type of the control.
+		/// </value>
+		protected internal virtual ControlType ControlType { get { return ControlType.Custom; } }
 
 		/// <summary>
 		/// Gets the current criteria for find operations.
 		/// </summary>
-		public FindSettings FindSettings { get;  internal set; }
+		public FindSettings FindSettings { get; internal set; }
+
+		/// <summary>
+		/// Gets the settings for the next or last wait operation.
+		/// </summary>
+		public WaitSettings WaitSettings { get; internal set; }
 
 		/// <summary>
 		/// Gets the name of the control if set
 		/// </summary>
-		public string Name { get { return this.AutomationElement.GetCurrentPropertyValue(AutomationElement.NameProperty).ToString(); } }
+		public string Name { get { return this.AutomationElement.Current.Name; } }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AutomationControl"/> class.
+		/// Gets a value indicating whether the control is enabled.
 		/// </summary>
-		public AutomationControl()
-		{
-		}
+		/// <value>
+		/// 	<c>true</c> if the control is enabled; otherwise, <c>false</c>.
+		/// </value>
+		public bool IsEnabled { get { return this.AutomationElement.Current.IsEnabled; } }
 
-		///// <summary>
-		///// Finds a child control by name.
-		///// </summary>
-		///// <typeparam name="TControl">The type of the control.</typeparam>
-		///// <param name="name">The name.</param>
-		///// <param name="secondsToRetry">The seconds to retry.</param>
-		///// <returns>The first child control with the specified name or null if not found in the specified period</returns>
-		//public TControl FindChildByName<TControl>(string name, int secondsToRetry = 0)
-		//    where TControl: AutomationControl, new()
-		//{
-		//    return this.AutomationElement.FindFirstChildByName(name, secondsToRetry).As<TControl>();
-		//}
-
-		///// <summary>
-		///// Finds a child control by automationId.
-		///// </summary>
-		///// <typeparam name="TControl">The type of the control.</typeparam>
-		///// <param name="automationId">The automationId.</param>
-		///// <param name="secondsToRetry">The seconds to retry.</param>
-		///// <returns>The first child control with the specified automationId or null if not found in the specified period</returns>
-		//public TControl FindChildByAutomationId<TControl>(string automationId, int secondsToRetry = 0)
-		//    where TControl: AutomationControl, new()
-		//{
-		//    return this.AutomationElement.FindFirstChildByAutomationId(automationId, secondsToRetry).As<TControl>();
-		//}
-
-		///// <summary>
-		///// Finds a descendant control by name.
-		///// </summary>
-		///// <typeparam name="TControl">The type of the control.</typeparam>
-		///// <param name="name">The name.</param>
-		///// <param name="secondsToRetry">The seconds to retry.</param>
-		///// <returns>The first descendant control with the specified name or null if not found in the specified period</returns>
-		//public TControl FindDescendantByName<TControl>(string name, int secondsToRetry = 0)
-		//    where TControl: AutomationControl, new()
-		//{
-		//    return this.AutomationElement.FindFirstDescendantByText(name, secondsToRetry).As<TControl>();
-		//}
-
-		///// <summary>
-		///// Finds a descendant control by automationId.
-		///// </summary>
-		///// <typeparam name="TControl">The type of the control.</typeparam>
-		///// <param name="automationId">The automationId.</param>
-		///// <param name="secondsToRetry">The seconds to retry.</param>
-		///// <returns>The first descendant control with the specified automationId or null if not found in the specified period</returns>
-		//public TControl FindDescendantByAutomationId<TControl>(string automationId, int secondsToRetry = 0)
-		//    where TControl: AutomationControl, new()
-		//{
-		//    return this.AutomationElement.FindFirstDescendantByAutomationId(automationId, secondsToRetry).As<TControl>();
-		//}
+		/// <summary>
+		/// Gets a value indicating the control is actually visible to automation.
+		/// </summary>
+		/// <value>
+		/// 	<c>true</c> if the control is visible to automation and has actually been found; otherwise, <c>false</c> indicating what you are working with is a proxy rather than the real control.
+		/// </value>
+		/// <remarks>
+		/// In WinForms setting the Visible property to false effectively hides the control from the UI automation components, so WATKit provides a proxy that you can
+		/// use later to find the real control or wait for it to become available.  For WPF applications the AutomationElement.IsOffScreenProperty returns true if the Visibility
+		/// propery of an element is set to Collapsed or Hidden.
+		/// </remarks>
+		public bool IsVisible { get; internal set; }
 	}
 }

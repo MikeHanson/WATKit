@@ -9,7 +9,7 @@
     <ProjectGuid>{7A8770C7-8084-4659-89F5-4EEFA99702F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WATKit.TestApp</RootNamespace>
+    <RootNamespace>WATKit.Tests</RootNamespace>
     <AssemblyName>WATKit.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -54,8 +54,11 @@
   <ItemGroup>
     <Compile Include="AutomationElementExtensionsTests.cs" />
     <Compile Include="ApplicationUnderTestTests.cs" />
+    <Compile Include="AutomationControlTests.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="FluentAutomationExtensionTests.cs" />
+    <Compile Include="ButtonTests.cs" />
+    <Compile Include="FluentAutomationWaitExtensionTests.cs" />
+    <Compile Include="FluentAutomationFindExtensionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

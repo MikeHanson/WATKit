@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace WATKit.Tests
 {
 	[TestClass]
-	public class FluentAutomationExtensionTests
+	public class FluentAutomationFindExtensionTests
 	{
 		private static ApplicationUnderTest Aut;
 		

@@ -4,10 +4,38 @@
 		Title="WATKit Test Application"
 		Height="350"
 		Width="525">
-	<StackPanel AutomationProperties.AutomationId="LayoutRoot">
-		<Button x:Name="ButtonWithName"
-				Content="Button With Name" />
-		<Button AutomationProperties.AutomationId="ButtonWithAutomationId"
-				Content="Button With Automation Id" />
-	</StackPanel>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+
+		<StackPanel AutomationProperties.AutomationId="LayoutRoot">
+			<Button x:Name="ButtonWithName"
+					Content="Button With Name" />
+			<Button AutomationProperties.AutomationId="ButtonWithAutomationId"
+					Content="Button With Automation Id" />
+			<Button x:Name="InvisibleButton"
+					AutomationProperties.AutomationId="InvisibleButton"
+					Content="Invisible Button"
+					Visibility="Hidden" />
+			<Button AutomationProperties.AutomationId="ShowInvisibleButton"
+					Content="Show Invisible Button"
+					Click="OnShowInvisibleButtonClick" />
+			<Button x:Name="DisabledButton"
+					AutomationProperties.AutomationId="DisabledButton"
+					Content="Disabled Button"
+					IsEnabled="False" />
+			<Button AutomationProperties.AutomationId="EnableDisabledButton"
+					Content="Enabled Disabled Button"
+					IsEnabled="True"
+					Click="OnEnableDisabledButtonClick" />
+			<Button x:Name="IChangeMyNameButton"
+					AutomationProperties.AutomationId="IChangeMyNameButton"
+					Content="I Change My Name Button"
+					IsEnabled="True"
+					Click="OnIChangeMyNameButtonClick" />
+		</StackPanel>
+	</Grid>
 </Window>

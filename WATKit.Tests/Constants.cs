@@ -11,5 +11,11 @@ namespace WATKit.Tests
 		internal static readonly string ButtonWithNameContent = "Button With Name";
 		internal static readonly string ButtonWithAutomationId = "ButtonWithAutomationId";
 		internal static readonly string ButtonWithAutomationIdContent = "Button With Automation Id";
+		internal static readonly string DisabledButtonId = "DisabledButton";
+		internal static readonly string InvisibleButtonId = "InvisibleButton";
+		internal static readonly string IChangeMyNameButtonId = "IChangeMyNameButton";
+		internal static readonly string IChangeMyNameButtonNewName = "My Name Has Changed";
+		internal static readonly string EnableDisabledButtonId = "EnableDisabledButton";
+		internal static readonly string ShowInvisibleButtonId = "ShowInvisibleButton";
 	}
 }

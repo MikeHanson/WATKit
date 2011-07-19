@@ -45,6 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationUnderTest.cs" />
+    <Compile Include="Exceptions\IncompatibleElementException.cs" />
+    <Compile Include="Exceptions\WaitTypeNotSetException.cs" />
+    <Compile Include="FluentAutomationWaitExtensions.cs" />
+    <Compile Include="WaitType.cs" />
+    <Compile Include="WaitSettings.cs" />
     <Compile Include="Exceptions\FindScopeNotSetException.cs" />
     <Compile Include="Exceptions\FindTypeNotSetException.cs">
       <SubType>Code</SubType>
@@ -56,7 +61,7 @@
     </Compile>
     <Compile Include="Controls\Button.cs" />
     <Compile Include="FindType.cs" />
-    <Compile Include="FluentAutomationExtensions.cs" />
+    <Compile Include="FluentAutomationFindExtensions.cs" />
     <Compile Include="Controls\Desktop.cs" />
     <Compile Include="FindSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace WATKit.TestAppWinForms
 {
@@ -14,6 +11,22 @@ namespace WATKit.TestAppWinForms
 		public MainWindow()
 		{
 			InitializeComponent();
+		}
+		
+		private void OnEnableDisabledButtonClick(object sender, EventArgs e)
+		{
+			Thread.Sleep(2);
+			this.DisabledButton.Enabled = true;
+		}
+
+		private void OnIChangeMyNameButtonClick(object sender, EventArgs e)
+		{
+			this.IChangeMyNameButton.Text = "My Name Has Changed";
+		}
+
+		private void ShowInvisibleButton_Click(object sender, EventArgs e)
+		{
+			this.InvisibleButton.Visible = true;
 		}
 	}
 }
