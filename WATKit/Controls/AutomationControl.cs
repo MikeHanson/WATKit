@@ -48,11 +48,19 @@ namespace WATKit.Controls
 		/// <value>
 		/// 	<c>true</c> if the control is visible to automation and has actually been found; otherwise, <c>false</c> indicating what you are working with is a proxy rather than the real control.
 		/// </value>
+		public bool IsVisible { get { return !this.IsProxy && !this.AutomationElement.Current.IsOffscreen; } }
+
+		/// <summary>
+		/// Gets a value indicating whether this control is a proxy.
+		/// </summary>
+		/// <value>
+		/// 	<c>true</c> if this control is a proxy for an element that could not be found; otherwise, <c>false</c>.
+		/// </value>
 		/// <remarks>
 		/// In WinForms setting the Visible property to false effectively hides the control from the UI automation components, so WATKit provides a proxy that you can
 		/// use later to find the real control or wait for it to become available.  For WPF applications the AutomationElement.IsOffScreenProperty returns true if the Visibility
 		/// propery of an element is set to Collapsed or Hidden.
 		/// </remarks>
-		public bool IsVisible { get; internal set; }
+		public bool IsProxy { get; internal set; }
 	}
 }

@@ -14,7 +14,7 @@ namespace WATKit.Tests
 		[ClassInitialize]
 		public static void Initialise(TestContext context)
 		{
-			Aut = ApplicationUnderTest.Launch(Constants.ApplicationPath, true);
+			Aut = ApplicationUnderTest.Launch(Utility.GetApplicationPath(), true);
 		}
 
 		[ClassCleanup]
@@ -40,19 +40,19 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void WithAutomationIdSetsFindSettingsSearchTypeToAutomationIdAndSetsIdentifier()
 		{
-			var findSettings = Aut.MainWindow.FindControl().WithId(Constants.ButtonWithAutomationId);
+			var findSettings = Aut.MainWindow.FindControl().WithId(Utility.ButtonWithAutomationId);
 			findSettings.Should().NotBeNull();
 			findSettings.FindType.Should().Be(FindType.AutomationId);
-			findSettings.Identifier.Should().Be(Constants.ButtonWithAutomationId);
+			findSettings.Identifier.Should().Be(Utility.ButtonWithAutomationId);
 		}
 
 		[TestMethod]
 		public void WithNameSetsFindSettingsSearchTypeToNameAndSetsIdentifier()
 		{
-			var findSettings = Aut.MainWindow.FindControl().WithText(Constants.ButtonWithNameContent);
+			var findSettings = Aut.MainWindow.FindControl().WithText(Utility.ButtonWithNameContent);
 			findSettings.Should().NotBeNull();
 			findSettings.FindType.Should().Be(FindType.Text);
-			findSettings.Identifier.Should().Be(Constants.ButtonWithNameContent);
+			findSettings.Identifier.Should().Be(Utility.ButtonWithNameContent);
 		}
 
 		[TestMethod]
@@ -197,57 +197,57 @@ namespace WATKit.Tests
 		[ExpectedException(typeof(FindScopeNotSetException))]
 		public void AsThrowsExceptionIfFindScopeNotSet()
 		{
-			Aut.MainWindow.FindControl().WithText(Constants.ButtonWithName).As<AutomationControl>();
+			Aut.MainWindow.FindControl().WithText(Utility.ButtonWithName).As<AutomationControl>();
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(FindScopeNotSetException))]
 		public void AsDefaultThrowsExceptionIfFindScopeNotSet()
 		{
-			Aut.MainWindow.FindControl().WithText(Constants.ButtonWithName).AsDefault();
+			Aut.MainWindow.FindControl().WithText(Utility.ButtonWithName).AsDefault();
 		}
 
 		[TestMethod]
 		public void AsReturnsButtonWithTextAsButton()
 		{
-			var result = Aut.MainWindow.FindControl().WithText(Constants.ButtonWithNameContent).IncludeDescendants().Now().As<Button>();
+			var result = Aut.MainWindow.FindControl().WithText(Utility.ButtonWithNameContent).IncludeDescendants().Now().As<Button>();
 			result.Should().NotBeNull();
 			result.Should().BeOfType<Button>();
-			result.Name.Should().Be(Constants.ButtonWithNameContent);
+			result.Name.Should().Be(Utility.ButtonWithNameContent);
 		}
 
 		[TestMethod]
 		public void AsDefaultReturnsButtonWithNameAsAutomationControl()
 		{
-			var result = Aut.MainWindow.FindControl().WithText(Constants.ButtonWithNameContent).IncludeDescendants().Now().AsDefault();
+			var result = Aut.MainWindow.FindControl().WithText(Utility.ButtonWithNameContent).IncludeDescendants().Now().AsDefault();
 			result.Should().NotBeNull();
 			result.Should().BeOfType<AutomationControl>();
-			result.Name.Should().Be(Constants.ButtonWithNameContent);
+			result.Name.Should().Be(Utility.ButtonWithNameContent);
 		}
 
 		[TestMethod]
 		public void AsReturnsButtonWithAutomationIdAsButton()
 		{
-			var result = Aut.MainWindow.FindControl().WithId(Constants.ButtonWithAutomationId).IncludeDescendants().Now().As<Button>();
+			var result = Aut.MainWindow.FindControl().WithId(Utility.ButtonWithAutomationId).IncludeDescendants().Now().As<Button>();
 			result.Should().NotBeNull();
 			result.Should().BeOfType<Button>();
-			result.Name.Should().Be(Constants.ButtonWithAutomationIdContent);
+			result.Name.Should().Be(Utility.ButtonWithAutomationIdContent);
 		}
 
 		[TestMethod]
 		public void AsDefaultReturnsButtonWithAutomationIdAsAutomationControl()
 		{
-			var result = Aut.MainWindow.FindControl().WithId(Constants.ButtonWithAutomationId).IncludeDescendants().Now().AsDefault();
+			var result = Aut.MainWindow.FindControl().WithId(Utility.ButtonWithAutomationId).IncludeDescendants().Now().AsDefault();
 			result.Should().NotBeNull();
 			result.Should().BeOfType<AutomationControl>();
-			result.Name.Should().Be(Constants.ButtonWithAutomationIdContent);
+			result.Name.Should().Be(Utility.ButtonWithAutomationIdContent);
 		}
 		
 		[TestMethod]
 		public void WaitForTimeSpanTakesAtLeastTheSpecifiedPeriodToFindElement()
 		{
 			var startTime = DateTime.Now;
-			Aut.MainWindow.FindControl().WithId(Constants.ButtonWithAutomationId).IncludeDescendants().WaitFor(TimeSpan.FromSeconds(2)).AsDefault();
+			Aut.MainWindow.FindControl().WithId(Utility.ButtonWithAutomationId).IncludeDescendants().WaitFor(TimeSpan.FromSeconds(2)).AsDefault();
 			var endTime = DateTime.Now;
 			var executionTime = endTime.Subtract(startTime);
 			executionTime.TotalSeconds.Should().BeGreaterOrEqualTo(2D);
@@ -257,7 +257,7 @@ namespace WATKit.Tests
 		public void WaitForIntTakesAtLeastTheSpecifiedPeriodToFindElement()
 		{
 			var startTime = DateTime.Now;
-			Aut.MainWindow.FindControl().WithId(Constants.ButtonWithAutomationId).IncludeDescendants().WaitFor(2).AsDefault();
+			Aut.MainWindow.FindControl().WithId(Utility.ButtonWithAutomationId).IncludeDescendants().WaitFor(2).AsDefault();
 			var endTime = DateTime.Now;
 			var executionTime = endTime.Subtract(startTime);
 			executionTime.TotalSeconds.Should().BeGreaterOrEqualTo(2D);

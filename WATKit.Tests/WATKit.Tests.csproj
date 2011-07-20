@@ -55,8 +55,9 @@
     <Compile Include="AutomationElementExtensionsTests.cs" />
     <Compile Include="ApplicationUnderTestTests.cs" />
     <Compile Include="AutomationControlTests.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="Utility.cs" />
     <Compile Include="ButtonTests.cs" />
+    <Compile Include="WindowTests.cs" />
     <Compile Include="FluentAutomationWaitExtensionTests.cs" />
     <Compile Include="FluentAutomationFindExtensionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

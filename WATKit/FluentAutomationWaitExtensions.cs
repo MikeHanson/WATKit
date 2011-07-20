@@ -226,7 +226,6 @@ namespace WATKit
 
 			SpinWait.SpinUntil(() =>
 			{
-				control.IsVisible = !element.Current.IsOffscreen;
 				return control.IsVisible == stateToWaitFor;
 			}, waitSettings.ActualTimeOut);
 			

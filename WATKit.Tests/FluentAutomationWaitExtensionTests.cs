@@ -14,7 +14,7 @@ namespace WATKit.Tests
 		[ClassInitialize]
 		public static void Initialise(TestContext context)
 		{
-			Aut = ApplicationUnderTest.Launch(Constants.ApplicationPathWinForms, true);
+			Aut = ApplicationUnderTest.Launch(Utility.ApplicationPathWinForms, true);
 		}
 
 		[ClassCleanup]
@@ -121,7 +121,7 @@ namespace WATKit.Tests
 		[ExpectedException(typeof(TimeoutException))]
 		public void TimeOutAfterTimesoutWaitingForEnabledButtonToBeDisabled()
 		{
-			var button = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Constants.ButtonWithAutomationId).Now().As<Button>();
+			var button = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.ButtonWithAutomationId).Now().As<Button>();
 			button.Should().NotBeNull();
 
 			var control = button.Wait().UntilDisabled().TimeoutAfter(TimeSpan.FromSeconds(5), true);
@@ -130,11 +130,11 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void TimeOutAfterWaitsForDisabledButtonToBecomeEnabled()
 		{
-			var disabledButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Constants.DisabledButtonId).Now().As<Button>();
+			var disabledButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.DisabledButtonId).Now().As<Button>();
 			disabledButton.Should().NotBeNull();
 			disabledButton.IsEnabled.Should().BeFalse();
 
-			var controlButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Constants.EnableDisabledButtonId).Now().As<Button>();
+			var controlButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.EnableDisabledButtonId).Now().As<Button>();
 			controlButton.Should().NotBeNull();
 			controlButton.Click();
 
@@ -146,11 +146,11 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void TimeOutAfterWaitsForInvisibleButtonToBecomeVisible()
 		{
-			var invisibleButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Constants.InvisibleButtonId).Now().As<Button>();
+			var invisibleButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.InvisibleButtonId).Now().As<Button>();
 			invisibleButton.Should().NotBeNull();
 			invisibleButton.IsVisible.Should().BeFalse();
 
-			var controlButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Constants.ShowInvisibleButtonId).Now().As<Button>();
+			var controlButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.ShowInvisibleButtonId).Now().As<Button>();
 			controlButton.Should().NotBeNull();
 			controlButton.Click();
 
@@ -162,11 +162,11 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void TimeOutAfterWaitsForDynamicallyAddedButtonToExist()
 		{
-			var invisibleButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Constants.InvisibleButtonId).Now().As<Button>();
+			var invisibleButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.InvisibleButtonId).Now().As<Button>();
 			invisibleButton.Should().NotBeNull();
 			invisibleButton.IsVisible.Should().BeFalse();
 
-			var controlButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Constants.ShowInvisibleButtonId).Now().As<Button>();
+			var controlButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.ShowInvisibleButtonId).Now().As<Button>();
 			controlButton.Should().NotBeNull();
 			controlButton.Click();
 

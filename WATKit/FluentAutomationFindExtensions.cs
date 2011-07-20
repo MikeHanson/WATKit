@@ -262,13 +262,13 @@ namespace WATKit
 				element = findSettings.SearchRoot.AutomationElement.FindFirst(scope, condition);
 			}
 						
-			findSettings.IsOwnerProxy = element == null || Convert.ToBoolean(element.GetCurrentPropertyValue(AutomationElement.IsOffscreenProperty));
+			findSettings.IsOwnerProxy = element == null || element.Current.IsOffscreen;
 
 			var result = new TControl
 				       	{
 				       		AutomationElement = element,
-							IsVisible = !findSettings.IsOwnerProxy,
-							FindSettings = findSettings
+							FindSettings = findSettings,
+							IsProxy = findSettings.IsOwnerProxy
 				       	};
 
 			result.ValidateControlType();

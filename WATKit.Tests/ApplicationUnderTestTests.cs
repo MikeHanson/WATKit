@@ -13,7 +13,7 @@ namespace WATKit.Tests
 		[TestInitialize]
 		public void Initialise()
 		{
-			this.applicationUnderTest = ApplicationUnderTest.Launch(Constants.ApplicationPath, true);
+			this.applicationUnderTest = ApplicationUnderTest.Launch(Utility.ApplicationPath, true);
 		}
 
 		[TestCleanup]
@@ -33,7 +33,7 @@ namespace WATKit.Tests
 				.NotBeNull();
 			this.applicationUnderTest.Name
 				.Should()
-				.Be(Constants.ApplicationTitle);
+				.Be(Utility.ApplicationTitle);
 			this.applicationUnderTest.IsRunning
 				.Should()
 				.BeTrue();

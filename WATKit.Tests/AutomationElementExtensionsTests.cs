@@ -9,14 +9,13 @@ namespace WATKit.Tests
 {
 	[TestClass]
 	public class AutomationElementExtensionsTests
-	{
-		
+	{		
 		private static ApplicationUnderTest Aut;
 		
 		[ClassInitialize]
 		public static void InitialiseClass(TestContext context)
 		{
-			Aut = ApplicationUnderTest.Launch(Constants.ApplicationPath, true);
+			Aut = ApplicationUnderTest.Launch(Utility.GetApplicationPath(), true);
 		}
 
 		[ClassCleanup]
@@ -31,7 +30,7 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void FindFirstDescendantByAutomationIdFindsButtonInTestApp()
 		{
-			Aut.MainWindow.AutomationElement.FindFirstDescendantByAutomationId(Constants.ButtonWithAutomationId)
+			Aut.MainWindow.AutomationElement.FindFirstDescendantByAutomationId(Utility.ButtonWithAutomationId)
 				.Should()
 				.NotBeNull();
 		}
@@ -39,7 +38,7 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void FindFirstDescendantByTextFindsButtonInTestApp()
 		{
-			Aut.MainWindow.AutomationElement.FindFirstDescendantByText(Constants.ButtonWithNameContent)
+			Aut.MainWindow.AutomationElement.FindFirstDescendantByText(Utility.ButtonWithNameContent)
 				.Should()
 				.NotBeNull();
 		}
