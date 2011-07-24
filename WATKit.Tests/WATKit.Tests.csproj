@@ -53,8 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutomationElementExtensionsTests.cs" />
-    <Compile Include="ApplicationUnderTestTests.cs" />
+    <Compile Include="FluentlyTests.cs" />
     <Compile Include="AutomationControlTests.cs" />
+    <Compile Include="TestBase.cs" />
+    <Compile Include="Controls\MainWindow.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="ButtonTests.cs" />
     <Compile Include="WindowTests.cs" />

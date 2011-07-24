@@ -8,12 +8,12 @@ namespace WATKit.Tests
 	[TestClass]
 	public class AutomationControlTests
 	{
-		private static ApplicationUnderTest Aut;
+		private static ApplicationUnderTest<Window> Aut;
 
 		[ClassInitialize]
 		public static void Initialise(TestContext context)
 		{
-			Aut = ApplicationUnderTest.Launch(Utility.GetApplicationPath(), true);
+			Aut = Fluently.Launch(Utility.GetApplicationPath()).WaitUntilMainWindowIsLoaded().WithDefaultMainWindow();
 		}
 
 		[ClassCleanup]
@@ -51,12 +51,13 @@ namespace WATKit.Tests
 		}
 
 		[TestMethod]
-		public void AsDefaultReturnsProxyForInvisibleButton()
+		public void AsDefaultReturnsProxyForNonExistentButton()
 		{
-			var result = Aut.MainWindow.FindControl().WithId(Utility.InvisibleButtonId).IncludeDescendants().Now().AsDefault();
+			var result = Aut.MainWindow.FindControl().WithId(Utility.MissingButtonId).IncludeDescendants().Now().AsDefault();
 			result.Should().NotBeNull();
 			result.IsVisible.Should().BeFalse();
 			result.FindSettings.IsOwnerProxy.Should().BeTrue();
+			result.IsProxy.Should().BeTrue();
 		}
 
 		[TestMethod]
@@ -70,13 +71,14 @@ namespace WATKit.Tests
 		}
 
 		[TestMethod]
-		public void AsReturnsProxyForInvisibleButton()
+		public void AsReturnsProxyForNonExistentButton()
 		{
-			var result = Aut.MainWindow.FindControl().WithId(Utility.InvisibleButtonId).IncludeDescendants().Now().As<Button>();
+			var result = Aut.MainWindow.FindControl().WithId(Utility.MissingButtonId).IncludeDescendants().Now().As<Button>();
 			result.Should().NotBeNull();
 			result.Should().BeOfType<Button>();
 			result.IsVisible.Should().BeFalse();
 			result.FindSettings.IsOwnerProxy.Should().BeTrue();
+			result.IsProxy.Should().BeTrue();
 		}
 	}
 }

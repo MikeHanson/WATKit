@@ -11,7 +11,7 @@
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
 
-		<StackPanel AutomationProperties.AutomationId="LayoutRoot">
+		<StackPanel x:Name="LeftColumn">
 			<Button x:Name="ButtonWithName"
 					Content="Button With Name" />
 			<Button AutomationProperties.AutomationId="ButtonWithAutomationId"
@@ -36,6 +36,11 @@
 					Content="I Change My Name Button"
 					IsEnabled="True"
 					Click="OnIChangeMyNameButtonClick" />
+			<Button x:Name="AddDynamicButton"
+					AutomationProperties.AutomationId="AddDynamicButton"
+					Content="AddDynamicButton"
+					IsEnabled="True"
+					Click="OnAddDynamicButtonClick" />
 		</StackPanel>
 	</Grid>
 </Window>

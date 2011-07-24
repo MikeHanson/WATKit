@@ -17,6 +17,9 @@ namespace WATKit.Tests
 		internal static readonly string IChangeMyNameButtonNewName = "My Name Has Changed";
 		internal static readonly string EnableDisabledButtonId = "EnableDisabledButton";
 		internal static readonly string ShowInvisibleButtonId = "ShowInvisibleButton";
+		internal static readonly string MissingButtonId = "MissingButton";
+		internal static readonly string DynamicButtonId = "DynamicButton";
+		internal static readonly string AddDynamicButtonId = "AddDynamicButton";
 
 		/// <summary>
 		/// Helper method to return the path of the application to test

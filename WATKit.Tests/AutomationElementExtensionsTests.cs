@@ -10,12 +10,12 @@ namespace WATKit.Tests
 	[TestClass]
 	public class AutomationElementExtensionsTests
 	{		
-		private static ApplicationUnderTest Aut;
+		private static ApplicationUnderTest<Window> Aut;
 		
 		[ClassInitialize]
 		public static void InitialiseClass(TestContext context)
 		{
-			Aut = ApplicationUnderTest.Launch(Utility.GetApplicationPath(), true);
+			Aut = Fluently.Launch(Utility.GetApplicationPath()).WaitUntilMainWindowIsLoaded().WithDefaultMainWindow();
 		}
 
 		[ClassCleanup]

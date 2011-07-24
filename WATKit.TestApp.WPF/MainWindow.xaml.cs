@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Threading;
+using System.Windows.Controls;
 
 namespace WATKit.TestApp
 {
@@ -25,6 +26,16 @@ namespace WATKit.TestApp
 		private void OnShowInvisibleButtonClick(object sender, RoutedEventArgs e)
 		{
 			this.InvisibleButton.Visibility = Visibility.Visible;
+		}
+
+		private void OnAddDynamicButtonClick(object sender, RoutedEventArgs e)
+		{
+			this.LeftColumn.Children.Add(new Button 
+			{
+				Name = "DynamicButton",
+				Content = "Dynamic Button",
+				Width = this.DisabledButton.Width 
+			});
 		}
 	}
 }

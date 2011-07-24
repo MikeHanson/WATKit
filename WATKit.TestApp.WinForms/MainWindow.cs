@@ -12,7 +12,7 @@ namespace WATKit.TestAppWinForms
 		{
 			InitializeComponent();
 		}
-		
+
 		private void OnEnableDisabledButtonClick(object sender, EventArgs e)
 		{
 			Thread.Sleep(2);
@@ -27,6 +27,16 @@ namespace WATKit.TestAppWinForms
 		private void ShowInvisibleButton_Click(object sender, EventArgs e)
 		{
 			this.InvisibleButton.Visible = true;
+		}
+
+		private void AddDynamicButton_Click(object sender, EventArgs e)
+		{
+			this.Controls.Add(new Button 
+			{
+				Name = "DynamicButton",
+				Text = "Dynamic Button",
+				Width = this.DisabledButton.Width
+			});
 		}
 	}
 }

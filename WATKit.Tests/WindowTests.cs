@@ -5,47 +5,42 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace WATKit.Tests
 {
 	[TestClass]
-	public class WindowTests
+	public class WindowTests: TestBase
 	{
-		private static ApplicationUnderTest Aut;
-		
-		[ClassInitialize]
-		public static void Initialise(TestContext context)
+		[TestInitialize]
+		public void Initialise()
 		{
-			Aut = ApplicationUnderTest.Launch(Utility.GetApplicationPath(), true);
+			base.Initialise();
 		}
 
-		[ClassCleanup]
-		public static void CleanupClass()
+		[TestCleanup]
+		public void Cleanup()
 		{
-			if(Aut != null)
-			{
-				Aut.ShutDown(true);
-			}
+			base.Cleanup();
 		}
 
 		[TestMethod]
 		public void WindowIsAvailableReturnsTrueAfterLaunch()
 		{
-			Aut.MainWindow.IsAvailable.Should().BeTrue();
+			this.Aut.MainWindow.IsAvailable.Should().BeTrue();
 		}
 
 		[TestMethod]
 		public void WindowIsModalReturnsFalseAfterLaunch()
 		{
-			Aut.MainWindow.IsModal.Should().BeFalse();
+			this.Aut.MainWindow.IsModal.Should().BeFalse();
 		}
 
 		[TestMethod]
 		public void WindowIsVisibleReturnsTrueAfterLaunch()
 		{
-			Aut.MainWindow.IsVisible.Should().BeTrue();
+			this.Aut.MainWindow.IsVisible.Should().BeTrue();
 		}
 
 		[TestMethod]
 		public void WindowNameReturnsTitleOfTestApp()
 		{
-			Aut.MainWindow.Name.Should().Be(Utility.ApplicationTitle);
+			this.Aut.MainWindow.Name.Should().Be(Utility.ApplicationTitle);
 		}
 	}
 }

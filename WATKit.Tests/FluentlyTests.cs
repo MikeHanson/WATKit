@@ -1,40 +1,41 @@
 ﻿using System;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WATKit.Controls;
 
 namespace WATKit.Tests
 {
 	[TestClass]
-	public class ApplicationUnderTestTests
+	public class FluentlyTests
 	{
 		private const string InvalidApplicationPath = @"C:\InvalidePath.exe";
-		private ApplicationUnderTest applicationUnderTest;
+		private ApplicationUnderTest<Window> aut;
 
 		[TestInitialize]
 		public void Initialise()
 		{
-			this.applicationUnderTest = ApplicationUnderTest.Launch(Utility.ApplicationPath, true);
+			this.aut = Fluently.Launch(Utility.GetApplicationPath()).WaitUntilMainWindowIsLoaded().WithDefaultMainWindow();
 		}
 
 		[TestCleanup]
 		public void Cleanup()
 		{
-			if(this.applicationUnderTest.IsRunning)
+			if(this.aut.IsRunning)
 			{
-				this.applicationUnderTest.ShutDown();
+				this.aut.ShutDown();
 			}
 		}
 
 		[TestMethod]
 		public void LaunchApplicationUnderTestWithValidPathLaunchesAppAndReturnsApplicationUnderTest()
 		{			
-			this.applicationUnderTest
+			this.aut
 				.Should()
 				.NotBeNull();
-			this.applicationUnderTest.Name
+			this.aut.Name
 				.Should()
 				.Be(Utility.ApplicationTitle);
-			this.applicationUnderTest.IsRunning
+			this.aut.IsRunning
 				.Should()
 				.BeTrue();
 		}
@@ -43,17 +44,17 @@ namespace WATKit.Tests
 		[ExpectedException(typeof(ArgumentException))]
 		public void LaunchApplicationUnderTestWithInvalidPathThrowsException()
 		{
-			this.applicationUnderTest.ShutDown();
-			ApplicationUnderTest.Launch(InvalidApplicationPath);
+			this.aut.ShutDown();
+			Fluently.Launch(InvalidApplicationPath).WaitUntilMainWindowIsLoaded().WithDefaultMainWindow();
 		}
 
 		[TestMethod]
 		public void ShutDownApplicationUnderTestEndsApplicationProcessAndReturnsTrue()
 		{
-			this.applicationUnderTest.ShutDown()
+			this.aut.ShutDown()
 				.Should()
 				.BeTrue();
-			this.applicationUnderTest.IsRunning
+			this.aut.IsRunning
 				.Should()
 				.BeFalse();
 		}

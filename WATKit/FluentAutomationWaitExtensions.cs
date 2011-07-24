@@ -149,12 +149,44 @@ namespace WATKit
 				case WaitType.Visible:
 				case WaitType.Hidden:
 					return ExecuteIsVisibleWait(waitSettings, throwExceptionOnTimeout);
+				case WaitType.Exists:
+				case WaitType.NotExists:
+					return ExecuteExistsWait(waitSettings, throwExceptionOnTimeout);
 				default:
 					return waitSettings.WaitRoot;
 			}
 		}
 
 		/// <summary>
+		/// Executes a wait on the existence of the target automation control.
+		/// </summary>
+		/// <param name="waitSettings">The wait settings.</param>
+		/// <param name="throwExceptionOnTimeout">if set to <c>true</c> throw an execption if the timeout expires.</param>
+		/// <returns>
+		/// The control owning the wait settings
+		/// </returns>
+		/// <exception cref="TimeoutException">Thrown if the timeout period is reached before the expected state is true</exception>
+		private static AutomationControl ExecuteExistsWait(WaitSettings waitSettings, bool throwExceptionOnTimeout)
+		{
+			var stateToWaitFor = waitSettings.WaitType == WaitType.NotExists;
+			var control = waitSettings.WaitRoot;
+
+			SpinWait.SpinUntil(() =>
+			{
+				control = control.FindSettings.AsDefault();
+				return control.IsProxy == stateToWaitFor;
+			}, waitSettings.ActualTimeOut);
+
+			if(throwExceptionOnTimeout && control.IsProxy != stateToWaitFor)
+			{
+				throw new TimeoutException("Wait operation timed out before the required existence was achieved");
+			}
+
+			waitSettings.WaitRoot = control;
+			return waitSettings.WaitRoot;
+		}
+
+        /// <summary>
 		/// Executes a wait on the IsVisible state of the target automation control.
 		/// </summary>
 		/// <param name="waitSettings">The wait settings.</param>

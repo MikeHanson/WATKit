@@ -45,9 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationUnderTest.cs" />
+    <Compile Include="ProcessExtensions.cs" />
+    <Compile Include="Fluently.cs" />
     <Compile Include="Exceptions\IncompatibleElementException.cs" />
     <Compile Include="Exceptions\WaitTypeNotSetException.cs" />
     <Compile Include="FluentAutomationWaitExtensions.cs" />
+    <Compile Include="LaunchSettings.cs" />
     <Compile Include="WaitType.cs" />
     <Compile Include="WaitSettings.cs" />
     <Compile Include="Exceptions\FindScopeNotSetException.cs" />

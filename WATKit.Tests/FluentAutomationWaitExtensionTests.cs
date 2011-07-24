@@ -7,41 +7,36 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace WATKit.Tests
 {
 	[TestClass]
-	public class FluentAutomationWaitExtensionTests
+	public class FluentAutomationWaitExtensionTests: TestBase
 	{
-		private static ApplicationUnderTest Aut;
-
-		[ClassInitialize]
-		public static void Initialise(TestContext context)
+		[TestInitialize]
+		public void Initialise()
 		{
-			Aut = ApplicationUnderTest.Launch(Utility.ApplicationPathWinForms, true);
+			base.Initialise();
 		}
 
-		[ClassCleanup]
-		public static void CleanupClass()
+		[TestCleanup]
+		public void Cleanup()
 		{
-			if(Aut != null)
-			{
-				Aut.ShutDown(true);
-			}
+			base.Cleanup();
 		}
 
 		[TestMethod]
 		public void WaitIntialisesNewWaitSettingsOnOwningAutomationControl()
 		{
-			var waitSettings = Aut.MainWindow.Wait();
+			var waitSettings = this.Aut.MainWindow.Wait();
 			waitSettings.Should().NotBeNull();
 			waitSettings.WaitType.Should().Be(WaitType.NotSet);
-			waitSettings.WaitRoot.Should().BeSameAs(Aut.MainWindow);
+			waitSettings.WaitRoot.Should().BeSameAs(this.Aut.MainWindow);
 			waitSettings.WaitTime.TotalSeconds.Should().BeInRange(0, 0);
-			Aut.MainWindow.WaitSettings.Should().NotBeNull();
-			Aut.MainWindow.WaitSettings.Should().BeSameAs(waitSettings);
+			this.Aut.MainWindow.WaitSettings.Should().NotBeNull();
+			this.Aut.MainWindow.WaitSettings.Should().BeSameAs(waitSettings);
 		}
 
 		[TestMethod]
 		public void UntilExistsSetsWaitTypeOnWaitSettings()
 		{
-			var waitSettings = Aut.MainWindow.Wait().UntilExists();
+			var waitSettings = this.Aut.MainWindow.Wait().UntilExists();
 			waitSettings.Should().NotBeNull();
 			waitSettings.WaitType.Should().Be(WaitType.Exists);
 		}
@@ -49,7 +44,7 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void UntilNotExistsSetsWaitTypeOnWaitSettings()
 		{
-			var waitSettings = Aut.MainWindow.Wait().UntilNotExists();
+			var waitSettings = this.Aut.MainWindow.Wait().UntilNotExists();
 			waitSettings.Should().NotBeNull();
 			waitSettings.WaitType.Should().Be(WaitType.NotExists);
 		}
@@ -57,7 +52,7 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void UntilVisibleSetsWaitTypeOnWaitSettings()
 		{
-			var waitSettings = Aut.MainWindow.Wait().UntilVisible();
+			var waitSettings = this.Aut.MainWindow.Wait().UntilVisible();
 			waitSettings.Should().NotBeNull();
 			waitSettings.WaitType.Should().Be(WaitType.Visible);
 		}
@@ -65,7 +60,7 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void UntilHiddenSetsWaitTypeOnWaitSettings()
 		{
-			var waitSettings = Aut.MainWindow.Wait().UntilHidden();
+			var waitSettings = this.Aut.MainWindow.Wait().UntilHidden();
 			waitSettings.Should().NotBeNull();
 			waitSettings.WaitType.Should().Be(WaitType.Hidden);
 		}
@@ -73,7 +68,7 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void UntilEnabledSetsWaitTypeOnWaitSettings()
 		{
-			var waitSettings = Aut.MainWindow.Wait().UntilEnabled();
+			var waitSettings = this.Aut.MainWindow.Wait().UntilEnabled();
 			waitSettings.Should().NotBeNull();
 			waitSettings.WaitType.Should().Be(WaitType.Enabled);
 		}
@@ -81,7 +76,7 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void UntilDisabledSetsWaitTypeOnWaitSettings()
 		{
-			var waitSettings = Aut.MainWindow.Wait().UntilDisabled();
+			var waitSettings = this.Aut.MainWindow.Wait().UntilDisabled();
 			waitSettings.Should().NotBeNull();
 			waitSettings.WaitType.Should().Be(WaitType.Disabled);
 		}
@@ -90,14 +85,14 @@ namespace WATKit.Tests
 		[ExpectedException(typeof(WaitTypeNotSetException))]
 		public void IndefinitelyThrowsExceptionIfWaitTypeNotSet()
 		{
-			var control = Aut.MainWindow.Wait().Indefinitely();
+			this.Aut.MainWindow.Wait().Indefinitely();
 		}
 
 		[TestMethod]
 		[Ignore]
 		public void IndefinitelySetsWaitTimeToZeroOnWaitSettings()
 		{
-			var control = Aut.MainWindow.Wait().UntilDisabled().Indefinitely();
+			var control = this.Aut.MainWindow.Wait().UntilDisabled().Indefinitely();
 			control.Should().NotBeNull();
 			control.WaitSettings.WaitTime.TotalSeconds.Should().BeInRange(0, 0);
 		}
@@ -106,13 +101,13 @@ namespace WATKit.Tests
 		[ExpectedException(typeof(WaitTypeNotSetException))]
 		public void TimeoutAfterThrowsExceptionIfWaitTypeNotSet()
 		{
-			var control = Aut.MainWindow.Wait().TimeoutAfter(TimeSpan.FromSeconds(5));
+			this.Aut.MainWindow.Wait().TimeoutAfter(TimeSpan.FromSeconds(5));
 		}
 
 		[TestMethod]
 		public void TimeoutAfterSetsWaitTimeOnWaitSettings()
 		{
-			var control = Aut.MainWindow.Wait().UntilDisabled().TimeoutAfter(TimeSpan.FromSeconds(5));
+			var control = this.Aut.MainWindow.Wait().UntilDisabled().TimeoutAfter(TimeSpan.FromSeconds(5));
 			control.Should().NotBeNull();
 			control.WaitSettings.WaitTime.TotalSeconds.Should().BeInRange(5, 5);
 		}
@@ -121,7 +116,7 @@ namespace WATKit.Tests
 		[ExpectedException(typeof(TimeoutException))]
 		public void TimeOutAfterTimesoutWaitingForEnabledButtonToBeDisabled()
 		{
-			var button = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.ButtonWithAutomationId).Now().As<Button>();
+			var button = this.Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.ButtonWithAutomationId).Now().As<Button>();
 			button.Should().NotBeNull();
 
 			var control = button.Wait().UntilDisabled().TimeoutAfter(TimeSpan.FromSeconds(5), true);
@@ -130,11 +125,11 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void TimeOutAfterWaitsForDisabledButtonToBecomeEnabled()
 		{
-			var disabledButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.DisabledButtonId).Now().As<Button>();
+			var disabledButton = this.Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.DisabledButtonId).Now().As<Button>();
 			disabledButton.Should().NotBeNull();
 			disabledButton.IsEnabled.Should().BeFalse();
 
-			var controlButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.EnableDisabledButtonId).Now().As<Button>();
+			var controlButton = this.Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.EnableDisabledButtonId).Now().As<Button>();
 			controlButton.Should().NotBeNull();
 			controlButton.Click();
 
@@ -146,11 +141,11 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void TimeOutAfterWaitsForInvisibleButtonToBecomeVisible()
 		{
-			var invisibleButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.InvisibleButtonId).Now().As<Button>();
+			var invisibleButton = this.Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.InvisibleButtonId).Now().As<Button>();
 			invisibleButton.Should().NotBeNull();
 			invisibleButton.IsVisible.Should().BeFalse();
 
-			var controlButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.ShowInvisibleButtonId).Now().As<Button>();
+			var controlButton = this.Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.ShowInvisibleButtonId).Now().As<Button>();
 			controlButton.Should().NotBeNull();
 			controlButton.Click();
 
@@ -162,15 +157,16 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void TimeOutAfterWaitsForDynamicallyAddedButtonToExist()
 		{
-			var invisibleButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.InvisibleButtonId).Now().As<Button>();
-			invisibleButton.Should().NotBeNull();
-			invisibleButton.IsVisible.Should().BeFalse();
+			var dynamicButton = this.Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.DynamicButtonId).Now().As<Button>();
+			dynamicButton.Should().NotBeNull();
+			dynamicButton.IsProxy.Should().BeTrue();
+			dynamicButton.IsVisible.Should().BeFalse();
 
-			var controlButton = Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.ShowInvisibleButtonId).Now().As<Button>();
+			var controlButton = this.Aut.MainWindow.FindControl().IncludeDescendants().WithId(Utility.AddDynamicButtonId).Now().As<Button>();
 			controlButton.Should().NotBeNull();
 			controlButton.Click();
 
-			var control = invisibleButton.Wait().UntilVisible().TimeoutAfter(TimeSpan.FromSeconds(5), true);
+			var control = dynamicButton.Wait().UntilExists().TimeoutAfter(TimeSpan.FromSeconds(5), true);
 			control.Should().NotBeNull();
 			control.IsVisible.Should().BeTrue();
 		}

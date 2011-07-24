@@ -6,29 +6,24 @@ using WATKit.Controls;
 namespace WATKit.Tests
 {
 	[TestClass]
-	public class ButtonTests
+	public class ButtonTests: TestBase
 	{
-		private static ApplicationUnderTest Aut;
-
-		[ClassInitialize]
-		public static void Initialise(TestContext context)
+		[TestInitialize]
+		public void Initialise()
 		{
-			Aut = ApplicationUnderTest.Launch(Utility.GetApplicationPath(), true);
+			base.Initialise();
 		}
 
-		[ClassCleanup]
-		public static void CleanupClass()
+		[TestCleanup]
+		public void Cleanup()
 		{
-			if(Aut != null)
-			{
-				Aut.ShutDown(true);
-			}
+			base.Cleanup();
 		}
 
 		[TestMethod]
 		public void ButtonClickIsInvokedOnButtonThatChangesContent()
 		{
-			var result = Aut.MainWindow.FindControl().WithId(Utility.IChangeMyNameButtonId).IncludeDescendants().Now().As<Button>();
+			var result = this.Aut.MainWindow.FindControl().WithId(Utility.IChangeMyNameButtonId).IncludeDescendants().Now().As<Button>();
 			result.Should().NotBeNull();
 			result.Click();
 			result.Name.Should().Be(Utility.IChangeMyNameButtonNewName);

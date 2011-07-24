@@ -1,8 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Threading;
-using System.Windows.Automation;
 using WATKit.Controls;
 
 namespace WATKit
@@ -10,7 +7,8 @@ namespace WATKit
 	/// <summary>
 	/// Represents the application being tested via automation
 	/// </summary>
-	public sealed class ApplicationUnderTest
+	/// <typeparam name="TMainWindow">The type of the main window.</typeparam>
+	public sealed class ApplicationUnderTest<TMainWindow>
 	{
 		/// <summary>
 		/// Gets the desktop.
@@ -23,7 +21,7 @@ namespace WATKit
 		/// <value>
 		/// The main window.
 		/// </value>
-		public Window MainWindow { get; internal set; }
+		public TMainWindow MainWindow { get; internal set; }
 
 		/// <summary>
 		/// Gets or sets the name.
@@ -66,7 +64,7 @@ namespace WATKit
 			var process = Process.GetProcessById(this.ProcessId);
 
 			// CloseMainWindow doesn't work until the MainWindowHandle is available
-			WaitForMainWindowHandle(process);
+			process.WaitForMainWindowHandle();
 
 			var success = process.CloseMainWindow();
 			if(success)
@@ -81,56 +79,6 @@ namespace WATKit
 			}
 
 			return !this.IsRunning;
-		}
-
-		/// <summary>
-		/// Launches the application under test.
-		/// </summary>
-		/// <param name="applicationPath">The application path.</param>
-		/// <param name="waitUntilFullyLoaded">if set to <c>true</c> [wait until fully loaded].</param>
-		/// <returns>
-		///   <see cref="WATKit.ApplicationUnderTest"/> instance with  the target application
-		/// </returns>
-		public static ApplicationUnderTest Launch(string applicationPath, bool waitUntilFullyLoaded = false)
-		{
-			if(String.IsNullOrEmpty(applicationPath) || !File.Exists(applicationPath))
-			{
-				throw new ArgumentException("The path is either missing or invalid", "applicationPath");
-			}
-
-			var process = Process.Start(new ProcessStartInfo(applicationPath));
-			if(waitUntilFullyLoaded)
-			{
-				WaitForMainWindowHandle(process);
-			}
-
-			var window = AutomationElement
-				.RootElement
-				.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, process.MainWindowTitle))
-				.As<Window>();
-
-			return new ApplicationUnderTest
-			{
-				Desktop = new Desktop(),
-				MainWindow = window,
-				Name = process.MainWindowTitle,
-				ProcessId = process.Id,
-				IsRunning = true
-			};
-		}
-
-		/// <summary>
-		/// Waits for main window handle.
-		/// </summary>
-		/// <param name="process">The process.</param>
-		private static void WaitForMainWindowHandle(Process process)
-		{
-			var handle = IntPtr.Zero;
-			SpinWait.SpinUntil(() =>
-			{
-				handle = process.MainWindowHandle;
-				return handle != IntPtr.Zero;
-			});
-		}
+		}			
 	}
 }

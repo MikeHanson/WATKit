@@ -37,6 +37,7 @@ namespace WATKit.TestAppWinForms
 			this.EnableDisabledButton = new System.Windows.Forms.Button();
 			this.IChangeMyNameButton = new System.Windows.Forms.Button();
 			this.ShowInvisibleButton = new System.Windows.Forms.Button();
+			this.AddDynamicButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// ButtonWithName
@@ -107,11 +108,22 @@ namespace WATKit.TestAppWinForms
 			this.ShowInvisibleButton.UseVisualStyleBackColor = true;
 			this.ShowInvisibleButton.Click += new System.EventHandler(this.ShowInvisibleButton_Click);
 			// 
+			// AddDynamicButton
+			// 
+			this.AddDynamicButton.Location = new System.Drawing.Point(12, 185);
+			this.AddDynamicButton.Name = "AddDynamicButton";
+			this.AddDynamicButton.Size = new System.Drawing.Size(132, 23);
+			this.AddDynamicButton.TabIndex = 7;
+			this.AddDynamicButton.Text = "Add Dynamic Button";
+			this.AddDynamicButton.UseVisualStyleBackColor = true;
+			this.AddDynamicButton.Click += new System.EventHandler(this.AddDynamicButton_Click);
+			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(459, 381);
+			this.Controls.Add(this.AddDynamicButton);
 			this.Controls.Add(this.ShowInvisibleButton);
 			this.Controls.Add(this.IChangeMyNameButton);
 			this.Controls.Add(this.EnableDisabledButton);
@@ -135,6 +147,7 @@ namespace WATKit.TestAppWinForms
 		private Button EnableDisabledButton;
 		private Button IChangeMyNameButton;
 		private Button ShowInvisibleButton;
+		private Button AddDynamicButton;
 	}
 }
 
