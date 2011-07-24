@@ -15,22 +15,27 @@ namespace WATKit.TestAppWinForms
 
 		private void OnEnableDisabledButtonClick(object sender, EventArgs e)
 		{
-			Thread.Sleep(2);
+			Thread.Sleep(2); // simulate some processing
 			this.DisabledButton.Enabled = true;
 		}
 
 		private void OnIChangeMyNameButtonClick(object sender, EventArgs e)
 		{
 			this.IChangeMyNameButton.Text = "My Name Has Changed";
+			Thread.Sleep(1); // give the change time to register
+
+			//TODO: probably need a wait on property value change
 		}
 
 		private void ShowInvisibleButton_Click(object sender, EventArgs e)
 		{
+			Thread.Sleep(2); // simulate some processing
 			this.InvisibleButton.Visible = true;
 		}
 
 		private void AddDynamicButton_Click(object sender, EventArgs e)
 		{
+			Thread.Sleep(2); // simulate some processing
 			this.Controls.Add(new Button 
 			{
 				Name = "DynamicButton",

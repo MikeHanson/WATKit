@@ -77,7 +77,6 @@ namespace WATKit
 					window = new TMainWindow
 					{
 						AutomationElement = item,
-						IsProxy = false
 					};
 				}
 			}

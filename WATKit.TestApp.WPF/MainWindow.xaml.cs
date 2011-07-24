@@ -14,22 +14,27 @@ namespace WATKit.TestApp
 
 		private void OnEnableDisabledButtonClick(object sender, RoutedEventArgs e)
 		{
-			Thread.Sleep(3);
+			Thread.Sleep(2); // simulate some processing
 			this.DisabledButton.IsEnabled = true;
 		}
 
 		private void OnIChangeMyNameButtonClick(object sender, RoutedEventArgs e)
 		{
 			this.IChangeMyNameButton.Content = "My Name Has Changed";
+			Thread.Sleep(1); // give the change time to register
+
+			//TODO: probably need a wait on property value change
 		}
 
 		private void OnShowInvisibleButtonClick(object sender, RoutedEventArgs e)
 		{
+			Thread.Sleep(2); // simulate some processing
 			this.InvisibleButton.Visibility = Visibility.Visible;
 		}
 
 		private void OnAddDynamicButtonClick(object sender, RoutedEventArgs e)
 		{
+			Thread.Sleep(2); // simulate some processing
 			this.LeftColumn.Children.Add(new Button 
 			{
 				Name = "DynamicButton",

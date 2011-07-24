@@ -161,7 +161,7 @@ namespace WATKit
 		/// Executes a wait on the existence of the target automation control.
 		/// </summary>
 		/// <param name="waitSettings">The wait settings.</param>
-		/// <param name="throwExceptionOnTimeout">if set to <c>true</c> throw an execption if the timeout expires.</param>
+		/// <param name="throwExceptionOnTimeout">if set to <c>true</c> throw an exception if the timeout expires.</param>
 		/// <returns>
 		/// The control owning the wait settings
 		/// </returns>
@@ -182,7 +182,7 @@ namespace WATKit
 				throw new TimeoutException("Wait operation timed out before the required existence was achieved");
 			}
 
-			waitSettings.WaitRoot = control;
+			waitSettings.WaitRoot.AutomationElement = control.AutomationElement;
 			return waitSettings.WaitRoot;
 		}
 

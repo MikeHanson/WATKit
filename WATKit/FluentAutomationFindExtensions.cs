@@ -267,8 +267,7 @@ namespace WATKit
 			var result = new TControl
 				       	{
 				       		AutomationElement = element,
-							FindSettings = findSettings,
-							IsProxy = findSettings.IsOwnerProxy
+							FindSettings = findSettings
 				       	};
 
 			result.ValidateControlType();

@@ -46,6 +46,11 @@ namespace WATKit.Tests.Controls
 		internal Button IChangeMyNameButton { get { return this.FindControl().IncludeDescendants().WithId(Utility.IChangeMyNameButtonId).As<Button>(); } }
 
 		/// <summary>
+		/// Gets the button button added dynamically.
+		/// </summary>
+		internal Button DynamicButton { get { return this.FindControl().IncludeDescendants().WithId(Utility.DynamicButtonId).As<Button>(); } }
+
+		/// <summary>
 		/// Gets the button that adds new button dynamically.
 		/// </summary>
 		internal Button AddDynamicButton { get { return this.FindControl().IncludeDescendants().WithId(Utility.AddDynamicButtonId).As<Button>(); } }
