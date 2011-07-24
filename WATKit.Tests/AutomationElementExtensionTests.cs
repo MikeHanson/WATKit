@@ -1,30 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WATKit.Controls;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WATKit.Tests
 {
 	[TestClass]
-	public class AutomationElementExtensionsTests
-	{		
-		private static ApplicationUnderTest<Window> Aut;
-		
-		[ClassInitialize]
-		public static void InitialiseClass(TestContext context)
+	public class AutomationElementExtensionTests: TestBase
+	{
+		[TestInitialize]
+		public void Initialise()
 		{
-			Aut = Fluently.Launch(Utility.GetApplicationPath()).WaitUntilMainWindowIsLoaded().WithDefaultMainWindow();
+			base.Initialise();
 		}
 
-		[ClassCleanup]
-		public static void CleanupClass()
+		[TestCleanup]
+		public void Cleanup()
 		{
-			if(Aut != null)
-			{
-				Aut.ShutDown();
-			}
+			base.Cleanup();
 		}
 
 		[TestMethod]

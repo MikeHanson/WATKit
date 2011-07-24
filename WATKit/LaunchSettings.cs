@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Collections;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Windows.Automation;
 using WATKit.Controls;
-using System.Threading;
 
 namespace WATKit
 {
@@ -37,7 +35,7 @@ namespace WATKit
 		/// <returns>
 		/// The original launch settings to support fluent usage
 		/// </returns>
-        public LaunchSettings WaitUntilMainWindowIsLoaded()
+		public LaunchSettings WaitUntilMainWindowIsLoaded()
 		{
 			this.WaitForWindowHandle = true;
 			return this;
@@ -64,15 +62,31 @@ namespace WATKit
 				process.WaitForMainWindowHandle();
 			}
 
-			var window = AutomationElement
+
+			var windows = AutomationElement
 				.RootElement
-				.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, process.MainWindowTitle))
-				.As<TMainWindow>();
+				.FindAll(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, process.MainWindowTitle))
+				.Cast<AutomationElement>()
+				.Where(p => ((bool)p.GetCurrentPropertyValue(AutomationElement.IsWindowPatternAvailableProperty)) == true);
+
+			TMainWindow window = null;
+			foreach(var item in windows)
+			{
+				if(item.Current.NativeWindowHandle == process.MainWindowHandle.ToInt32())
+				{
+					window = new TMainWindow
+					{
+						AutomationElement = item,
+						IsProxy = false
+					};
+				}
+			}
 
 			return new ApplicationUnderTest<TMainWindow>
 			{
 				Desktop = new Desktop(),
 				MainWindow = window,
+				MainWindowHandle = process.MainWindowHandle.ToInt32(),
 				Name = process.MainWindowTitle,
 				ProcessId = process.Id,
 				IsRunning = true

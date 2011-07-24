@@ -52,7 +52,8 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutomationElementExtensionsTests.cs" />
+    <Compile Include="AutomationElementExtensionTests.cs" />
+    <Compile Include="MainWindowTests.cs" />
     <Compile Include="FluentlyTests.cs" />
     <Compile Include="AutomationControlTests.cs" />
     <Compile Include="TestBase.cs" />

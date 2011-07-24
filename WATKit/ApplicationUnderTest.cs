@@ -24,6 +24,14 @@ namespace WATKit
 		public TMainWindow MainWindow { get; internal set; }
 
 		/// <summary>
+		/// Gets or sets the native handle of the main window.
+		/// </summary>
+		/// <value>
+		/// The native handle of the main window as indicated by the process.
+		/// </value>
+		public int MainWindowHandle { get; internal set; }
+
+        /// <summary>
 		/// Gets or sets the name.
 		/// </summary>
 		/// <value>
@@ -55,9 +63,9 @@ namespace WATKit
 		/// <summary>
 		/// Shuts down application under test.
 		/// </summary>
-		/// <param name="forceShutdown">if set to <c>true</c> kill the process if graceful shutdown does not succeed.</param>
+		/// <param name="forceShutdown">if set to <c>true</c> kill the process if graceful shut down does not succeed.</param>
 		/// <returns>
-		/// <c>true</c> if the process is succesfully shutdown, otherwise <c>false</c>
+		/// <c>true</c> if the process is successfully shut down, otherwise <c>false</c>
 		/// </returns>
 		public bool ShutDown(bool forceShutdown = false)
 		{
