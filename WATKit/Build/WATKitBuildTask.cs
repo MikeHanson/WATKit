@@ -11,6 +11,8 @@ namespace WATKit.Build
 {
 	public class WATKitBuildTask: Task
 	{
+		private const string DefaultModuleName = "<Module>";
+
 		/// <summary>
 		/// Gets or sets the test assembly path.
 		/// </summary>
@@ -82,30 +84,34 @@ namespace WATKit.Build
 					var assembly = AssemblyDefinition.ReadAssembly(assemblyPaths[i]);
 					foreach(var module in assembly.Modules)
 					{
-						sourceModules[i] = module;
+						sourceModules.Add(module);
 					}
 				}
 
+				var automationMappingAttributeName = typeof(AutomationTypeMappingAttribute).FullName;
+				var ignoreAttributeName = typeof(IgnoreAttribute).FullName;
+				var memberMappingAttributeName = typeof(AutomationMemberMappingAttribute).FullName;
+
 				foreach(var module in testAssembly.Modules)
 				{
-					foreach(var item in module.Types)
+					foreach(var item in module.Types.Where(t => t.BaseType != null))
 					{
 						Log.LogMessage(MessageImportance.Normal, String.Format("Processing {0}", item.Name));
 						Log.LogMessage(MessageImportance.Normal, String.Format("Checking {0} for mapping attributes", item.Name));
-						
-						var attributes = item.CustomAttributes;
-						if(attributes == null || attributes.Length == 0)
+
+						var attributes = item.CustomAttributes.Where(a => a.AttributeType.FullName == automationMappingAttributeName).ToList();
+						if(attributes == null || attributes.Count == 0)
 						{
 							continue;
 						}
 
-						var attribute = attributes[0] as AutomationTypeMappingAttribute;
-						Log.LogMessage(MessageImportance.High, String.Format("Found type mapping to {0} on {1}, processing properties", attribute.TargetType, item.FullName));
+						var targetTypeName = attributes[0].ConstructorArguments[0].Value.ToString();
+						Log.LogMessage(MessageImportance.High, String.Format("Found type mapping to {0} on {1}, processing properties", targetTypeName, item.FullName));
 
-						Type targetType = null;
-						foreach(var assembly in sourceModules)
+						TypeDefinition targetType = null;
+						foreach(var sourceModule in sourceModules)
 						{
-							targetType = assembly.GetType(attribute.TargetType);
+							targetType = sourceModule.Types.Where(p => p.BaseType != null).FirstOrDefault(p => p.FullName == targetTypeName);
 							if(targetType != null)
 							{
 								break;
@@ -114,16 +120,22 @@ namespace WATKit.Build
 
 						if(targetType == null)
 						{
-							Log.LogError(String.Format("Could not find mapped type {0} in any of the source assemblies specified", attribute.TargetType));
+							Log.LogError(String.Format("Could not find mapped type {0} in any of the source assemblies specified", targetTypeName));
 							success = false;
 							break;
 						}
 
-						var properties = item.GetProperties().Where(p => p.GetCustomAttributes(typeof(IgnoreAttribute), false).Length == 0).ToList();
+						var properties = item.Properties.Where(p => p.CustomAttributes.Where(a => a.AttributeType.FullName == ignoreAttributeName).Count() == 0).ToList();
 						foreach(var property in properties)
 						{
+							var matchName = property.Name;
+							var mappingAttribute = property.CustomAttributes.FirstOrDefault(ca => ca.AttributeType.FullName == memberMappingAttributeName);
+							if(mappingAttribute != null)
+							{
+								matchName = mappingAttribute.ConstructorArguments[0].Value.ToString();
+							}
 							Log.LogMessage(MessageImportance.High, String.Format("Checking {0} has a matching element in {1}", property.Name, targetType.FullName));
-							var targetElement = targetType.GetProperty(property.Name);
+							var targetElement = targetType.Fields.FirstOrDefault(p => p.Name == matchName);
 							if(targetElement != null)
 							{
 								Log.LogMessage(MessageImportance.High, "Element found");
@@ -152,17 +164,6 @@ namespace WATKit.Build
 			}
 
 			return success;
-		}
-
-		/// <summary>
-		/// Called when reflection needs to load a dependent assembly.
-		/// </summary>
-		/// <param name="sender">The sender.</param>
-		/// <param name="args">The <see cref="System.ResolveEventArgs"/> instance containing the event data.</param>
-		/// <returns></returns>
-		Assembly OnReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args)
-		{
-			return Assembly.ReflectionOnlyLoad(args.Name);
 		}
 	}
 }

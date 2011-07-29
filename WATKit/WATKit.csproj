@@ -87,7 +87,7 @@
     <Compile Include="FindSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\Window.cs" />
-    <Compile Include="WATKitBuildTask.cs" />
+    <Compile Include="Build\WATKitBuildTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Debug.testproj" />

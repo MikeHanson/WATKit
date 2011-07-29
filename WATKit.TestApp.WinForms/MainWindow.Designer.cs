@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace WATKit.TestAppWinForms
+namespace WATKit.TestApp
 {
 	partial class MainWindow
 	{

@@ -9,6 +9,13 @@ namespace WATKit.Build
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple=false, Inherited=false)]
 	public class IgnoreAttribute: Attribute
-	{		
+	{
+		/// <summary>
+		/// Gets or sets the reason.
+		/// </summary>
+		/// <value>
+		/// Optional reason for ignoring the element
+		/// </value>
+		public string Reason { get; set; }
 	}
 }

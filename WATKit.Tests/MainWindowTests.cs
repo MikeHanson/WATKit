@@ -82,7 +82,7 @@ namespace WATKit.Tests
 		[TestMethod]
 		public void IChangeMyNameButtonReturnsCorrectButton()
 		{
-			var button = this.aut.MainWindow.IChangeMyNameButton;
+			var button = this.aut.MainWindow.ChangeMyNameButton;
 			button.Should().NotBeNull();
 			button.AutomationElement.Current.AutomationId.Should().Be(Utility.IChangeMyNameButtonId);
 		}

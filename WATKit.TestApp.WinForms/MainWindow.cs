@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Threading;
 
-namespace WATKit.TestAppWinForms
+namespace WATKit.TestApp
 {
 	public partial class MainWindow: Form
 	{

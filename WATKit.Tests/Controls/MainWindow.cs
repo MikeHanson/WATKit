@@ -45,11 +45,13 @@ namespace WATKit.Tests.Controls
 		/// <summary>
 		/// Gets the button that changes it's text content
 		/// </summary>
-		public Button IChangeMyNameButton { get { return this.FindControl().IncludeDescendants().WithId(Utility.IChangeMyNameButtonId).As<Button>(); } }
+		[AutomationMemberMapping("IChangeMyNameButton")]
+		public Button ChangeMyNameButton { get { return this.FindControl().IncludeDescendants().WithId(Utility.IChangeMyNameButtonId).As<Button>(); } }
 
 		/// <summary>
 		/// Gets the button button added dynamically.
 		/// </summary>
+		[Ignore(Reason = "Button does not exist until run time")]
 		public Button DynamicButton { get { return this.FindControl().IncludeDescendants().WithId(Utility.DynamicButtonId).As<Button>(); } }
 
 		/// <summary>
