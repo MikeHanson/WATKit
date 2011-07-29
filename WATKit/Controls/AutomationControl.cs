@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Automation;
 using ControlType = System.Windows.Automation.ControlType;
+using WATKit.Build;
 
 namespace WATKit.Controls
 {
@@ -9,6 +10,7 @@ namespace WATKit.Controls
 		/// <summary>
 		/// Gets the underlying automation element.
 		/// </summary>
+		[Ignore]
 		public AutomationElement AutomationElement { get; internal set; }
 
 		/// <summary>
@@ -22,16 +24,19 @@ namespace WATKit.Controls
 		/// <summary>
 		/// Gets the current criteria for find operations.
 		/// </summary>
+		[Ignore]
 		public FindSettings FindSettings { get; internal set; }
 
 		/// <summary>
 		/// Gets the settings for the next or last wait operation.
 		/// </summary>
+		[Ignore]
 		public WaitSettings WaitSettings { get; internal set; }
 
 		/// <summary>
 		/// Gets the name of the control if set
 		/// </summary>
+		[Ignore]
 		public string Name { get { return this.AutomationElement.Current.Name; } }
 
 		/// <summary>
@@ -40,6 +45,7 @@ namespace WATKit.Controls
 		/// <value>
 		/// 	<c>true</c> if the control is enabled; otherwise, <c>false</c>.
 		/// </value>
+		[Ignore]
 		public bool IsEnabled { get { return this.AutomationElement.Current.IsEnabled; } }
 
 		/// <summary>
@@ -48,6 +54,7 @@ namespace WATKit.Controls
 		/// <value>
 		/// 	<c>true</c> if the control is visible to automation and has actually been found; otherwise, <c>false</c> indicating what you are working with is a proxy rather than the real control.
 		/// </value>
+		[Ignore]
 		public bool IsVisible { get { return !this.IsProxy && !this.AutomationElement.Current.IsOffscreen; } }
 
 		/// <summary>
@@ -61,6 +68,7 @@ namespace WATKit.Controls
 		/// use later to find the real control or wait for it to become available.  For WPF applications the AutomationElement.IsOffScreenProperty returns true if the Visibility
 		/// property of an element is set to Collapsed or Hidden.
 		/// </remarks>
+		[Ignore]
 		public bool IsProxy { get { return this.AutomationElement == null; } }
 	}
 }

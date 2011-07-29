@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B8C05B5C-75A7-46D2-A0CF-9FF64325FFE7}</ProjectGuid>
+    <ProjectGuid>{C9177746-6497-4B59-9B42-FEA135EF0F48}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WATKit</RootNamespace>
-    <AssemblyName>WATKit</AssemblyName>
+    <RootNamespace>WATKit.Build</RootNamespace>
+    <AssemblyName>WATKit.Build</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -53,47 +53,20 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UIAutomationClient" />
-    <Reference Include="UIAutomationClientsideProviders" />
-    <Reference Include="UIAutomationProvider" />
-    <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationUnderTest.cs" />
-    <Compile Include="Build\AutomationMemberMappingAttribute.cs" />
-    <Compile Include="Build\AutomationTypeMappingAttribute.cs" />
-    <Compile Include="Build\IgnoreAttribute.cs" />
-    <Compile Include="ProcessExtensions.cs" />
-    <Compile Include="Fluently.cs" />
-    <Compile Include="Exceptions\IncompatibleElementException.cs" />
-    <Compile Include="Exceptions\WaitTypeNotSetException.cs" />
-    <Compile Include="FluentAutomationWaitExtensions.cs" />
-    <Compile Include="LaunchSettings.cs" />
-    <Compile Include="WaitType.cs" />
-    <Compile Include="WaitSettings.cs" />
-    <Compile Include="Exceptions\FindScopeNotSetException.cs" />
-    <Compile Include="Exceptions\FindTypeNotSetException.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FindScope.cs" />
-    <Compile Include="Controls\AutomationControl.cs" />
-    <Compile Include="AutomationElementExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Controls\Button.cs" />
-    <Compile Include="FindType.cs" />
-    <Compile Include="FluentAutomationFindExtensions.cs" />
-    <Compile Include="Controls\Desktop.cs" />
-    <Compile Include="FindSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controls\Window.cs" />
-    <Compile Include="WATKitBuildTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Debug.testproj" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\WATKit\WATKit.csproj">
+      <Project>{B8C05B5C-75A7-46D2-A0CF-9FF64325FFE7}</Project>
+      <Name>WATKit</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

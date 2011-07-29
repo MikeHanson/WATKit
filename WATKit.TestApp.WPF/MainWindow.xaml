@@ -14,7 +14,8 @@
 		<StackPanel x:Name="LeftColumn">
 			<Button x:Name="ButtonWithName"
 					Content="Button With Name" />
-			<Button AutomationProperties.AutomationId="ButtonWithAutomationId"
+			<Button x:Name="ButtonWithAutomationId"
+					AutomationProperties.AutomationId="ButtonWithAutomationId"
 					Content="Button With Automation Id" />
 			<Button x:Name="InvisibleButton"
 					AutomationProperties.AutomationId="InvisibleButton"

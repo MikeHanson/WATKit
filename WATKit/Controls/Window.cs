@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Automation;
+using WATKit.Build;
 
 namespace WATKit.Controls
 {
@@ -21,6 +22,7 @@ namespace WATKit.Controls
 		/// <value>
 		/// 	<c>true</c> if the window is modal; otherwise, <c>false</c>.
 		/// </value>
+		[Ignore]
 		public bool IsModal { get { return this.WindowPattern.Current.IsModal; } }
 
 		/// <summary>
@@ -29,6 +31,7 @@ namespace WATKit.Controls
 		/// <value>
 		/// 	<c>true</c> if the window is available for interaction; otherwise, <c>false</c>.
 		/// </value>
+		[Ignore]
 		public bool IsAvailable { get { return this.WindowPattern.Current.WindowInteractionState == WindowInteractionState.ReadyForUserInteraction; } }
 
 		/// <summary>
