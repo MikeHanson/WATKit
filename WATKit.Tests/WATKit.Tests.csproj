@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutomationElementExtensionTests.cs" />
-    <Compile Include="Controls\Class1.cs" />
+    <Compile Include="Controls\ChildWindow.cs" />
     <Compile Include="DesktopTests.cs" />
     <Compile Include="PasswordBoxTests.cs" />
     <Compile Include="TextBoxTests.cs" />
