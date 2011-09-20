@@ -5,13 +5,26 @@ using WATKit.Build;
 
 namespace WATKit.Controls
 {
+	/// <summary>
+	/// Default wrapper for automation elements
+	/// </summary>
 	public class AutomationControl
-	{		
+	{
+		private AutomationElement automationElement;
+
 		/// <summary>
 		/// Gets the underlying automation element.
 		/// </summary>
 		[Ignore]
-		public AutomationElement AutomationElement { get; internal set; }
+		public AutomationElement AutomationElement
+		{
+			get { return this.automationElement; }
+			internal set
+			{
+				this.ValidateElement(value);
+				this.automationElement = value;
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets the type of the control.
@@ -70,5 +83,11 @@ namespace WATKit.Controls
 		/// </remarks>
 		[Ignore]
 		public bool IsProxy { get { return this.AutomationElement == null; } }
+
+		/// <summary>
+		/// Validates the element.
+		/// </summary>
+		/// <param name="element">The element.</param>
+		protected virtual void ValidateElement(AutomationElement element) { }
 	}
 }

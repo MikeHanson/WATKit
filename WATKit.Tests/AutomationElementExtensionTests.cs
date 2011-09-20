@@ -1,27 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace WATKit.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class AutomationElementExtensionTests: TestBase
 	{
-		[TestInitialize]
-		public void Initialise()
-		{
-			base.Initialise();
-		}
-
-		[TestCleanup]
-		public void Cleanup()
-		{
-			base.Cleanup();
-		}
-
-		[TestMethod]
+		[Test]
 		public void FindFirstDescendantByAutomationIdFindsButtonInTestApp()
 		{
 			Aut.MainWindow.AutomationElement.FindFirstDescendantByAutomationId(Utility.ButtonWithAutomationId)
@@ -29,7 +15,7 @@ namespace WATKit.Tests
 				.NotBeNull();
 		}
 
-		[TestMethod]
+		[Test]
 		public void FindFirstDescendantByTextFindsButtonInTestApp()
 		{
 			Aut.MainWindow.AutomationElement.FindFirstDescendantByText(Utility.ButtonWithNameContent)

@@ -3,6 +3,9 @@ using System.Windows.Automation;
 
 namespace WATKit.Controls
 {
+	/// <summary>
+	/// Wraps button for automation
+	/// </summary>
 	public class Button: AutomationControl
 	{
 		/// <summary>

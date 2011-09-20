@@ -44,6 +44,16 @@
 					Content="AddDynamicButton"
 					IsEnabled="True"
 					Click="OnAddDynamicButtonClick" />
+			<TextBox x:Name="TextBoxWithName"
+					 Width="100" />
+			<PasswordBox x:Name="PasswordBoxWithName"
+						 Width="100" />
+		</StackPanel>
+
+		<StackPanel x:Name="MiddleColumn"
+					Grid.Column="1">
+			<Button x:Name="OpenChildWindowButton"
+					Content="Open Child Window" Click="OpenChildWindowButton_Click" />
 		</StackPanel>
 	</Grid>
 </Window>

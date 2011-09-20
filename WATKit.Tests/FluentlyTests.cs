@@ -1,17 +1,17 @@
 ﻿using System;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using WATKit.Controls;
 using WATKit.Tests.Controls;
 
 namespace WATKit.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class FluentlyTests
 	{
 		private const string InvalidApplicationPath = @"C:\InvalidePath.exe";
 		
-		[TestMethod]
+		[Test]
 		public void LaunchSetsApplicationPathOfLaunchSettings()
 		{
 			var launchSettings = Fluently.Launch(Utility.GetApplicationPath());
@@ -19,7 +19,7 @@ namespace WATKit.Tests
 			launchSettings.ApplicationPath.Should().Be(Utility.GetApplicationPath());
 		}
 
-		[TestMethod]
+		[Test]
 		public void WaitUntilMainWindowIsLoadedSetsWaitForWindowHandleToTrue()
 		{
 			var launchSettings = Fluently.Launch(Utility.GetApplicationPath()).WaitUntilMainWindowIsLoaded();
@@ -27,7 +27,7 @@ namespace WATKit.Tests
 			launchSettings.WaitForWindowHandle.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Test]
 		public void LaunchWithValidPathLaunchesAppAndReturnsApplicationUnderTest()
 		{
 			var aut = Fluently.Launch(Utility.GetApplicationPath()).WaitUntilMainWindowIsLoaded().WithDefaultMainWindow();
@@ -42,14 +42,14 @@ namespace WATKit.Tests
 			aut.ShutDown(true);
 		}
 
-		[TestMethod]
+		[Test]
 		[ExpectedException(typeof(ArgumentException))]
 		public void LaunchWithInvalidPathThrowsException()
 		{
 			Fluently.Launch(InvalidApplicationPath).WaitUntilMainWindowIsLoaded().WithDefaultMainWindow();
 		}
 
-		[TestMethod]
+		[Test]
 		public void ShutDownEndsApplicationProcessAndReturnsTrue()
 		{
 			var aut = Fluently.Launch(Utility.GetApplicationPath()).WaitUntilMainWindowIsLoaded().WithDefaultMainWindow();
@@ -61,7 +61,7 @@ namespace WATKit.Tests
 				.BeFalse();
 		}
 
-		[TestMethod]
+		[Test]
 		public void WithDefaultMainWindowReturnsApplicationUnderTestWithMainWindowAsWindow()
 		{
 			var aut = Fluently.Launch(Utility.GetApplicationPath()).WaitUntilMainWindowIsLoaded().WithDefaultMainWindow();
@@ -70,7 +70,7 @@ namespace WATKit.Tests
 			aut.ShutDown(true);
 		}
 
-		[TestMethod]
+		[Test]
 		public void WithMainWindowAsReturnsApplicationUnderTestWithMainWindowOfSpecifiedType()
 		{
 			var aut = Fluently.Launch(Utility.GetApplicationPath()).WaitUntilMainWindowIsLoaded().WithMainWindowAs<MainWindow>();

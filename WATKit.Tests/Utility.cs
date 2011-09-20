@@ -20,6 +20,10 @@ namespace WATKit.Tests
 		internal static readonly string MissingButtonId = "MissingButton";
 		internal static readonly string DynamicButtonId = "DynamicButton";
 		internal static readonly string AddDynamicButtonId = "AddDynamicButton";
+		internal static readonly string TextBoxWithName = "TextBoxWithName";
+		internal static readonly string PasswordBoxWithName = "PasswordBoxWithName";
+		internal static readonly string OpenChildWindowButton = "OpenChildWindowButton";
+		internal static readonly string ChildWindowTitle = "Child Window";
 
 		/// <summary>
 		/// Helper method to return the path of the application to test

@@ -106,7 +106,7 @@ namespace WATKit.Build
 						}
 
 						var targetTypeName = attributes[0].ConstructorArguments[0].Value.ToString();
-						Log.LogMessage(MessageImportance.High, String.Format("Found type mapping to {0} on {1}, processing properties", targetTypeName, item.FullName));
+						Log.LogMessage(MessageImportance.Normal, String.Format("Found type mapping to {0} on {1}, processing properties", targetTypeName, item.FullName));
 
 						TypeDefinition targetType = null;
 						foreach(var sourceModule in sourceModules)
@@ -134,11 +134,11 @@ namespace WATKit.Build
 							{
 								matchName = mappingAttribute.ConstructorArguments[0].Value.ToString();
 							}
-							Log.LogMessage(MessageImportance.High, String.Format("Checking {0} has a matching element in {1}", property.Name, targetType.FullName));
+							Log.LogMessage(MessageImportance.Low, String.Format("Checking {0} has a matching element in {1}", property.Name, targetType.FullName));
 							var targetElement = targetType.Fields.FirstOrDefault(p => p.Name == matchName);
 							if(targetElement != null)
 							{
-								Log.LogMessage(MessageImportance.High, "Element found");
+								Log.LogMessage(MessageImportance.Low, "Element found");
 								targetElement = null;
 								continue;
 							}

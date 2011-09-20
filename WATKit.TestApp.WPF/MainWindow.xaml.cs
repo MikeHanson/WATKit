@@ -21,7 +21,7 @@ namespace WATKit.TestApp
 		private void OnIChangeMyNameButtonClick(object sender, RoutedEventArgs e)
 		{
 			this.IChangeMyNameButton.Content = "My Name Has Changed";
-			Thread.Sleep(1); // give the change time to register
+			Thread.Sleep(2); // give the change time to register
 
 			//TODO: probably need a wait on property value change
 		}
@@ -41,6 +41,11 @@ namespace WATKit.TestApp
 				Content = "Dynamic Button",
 				Width = this.DisabledButton.Width 
 			});
+		}
+
+		private void OpenChildWindowButton_Click(object sender, RoutedEventArgs e)
+		{
+			new ChildWindow().ShowDialog();
 		}
 	}
 }

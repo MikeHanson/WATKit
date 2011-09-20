@@ -3,8 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7A8770C7-8084-4659-89F5-4EEFA99702F0}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -13,7 +12,6 @@
     <AssemblyName>WATKit.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,9 +34,17 @@
     <Reference Include="FluentAssertions">
       <HintPath>..\..\iSportster\packages\FluentAssertions.1.4.0.0\Lib\.NetFramework 4.0\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="NSubstitute">
       <HintPath>..\..\iSportster\packages\NSubstitute.1.0.0.0\lib\35\NSubstitute.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.mocks, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="pnunit.framework, Version=1.0.4109.34242, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -53,6 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutomationElementExtensionTests.cs" />
+    <Compile Include="Controls\Class1.cs" />
+    <Compile Include="DesktopTests.cs" />
+    <Compile Include="PasswordBoxTests.cs" />
+    <Compile Include="TextBoxTests.cs" />
     <Compile Include="MainWindowTests.cs" />
     <Compile Include="FluentlyTests.cs" />
     <Compile Include="AutomationControlTests.cs" />
@@ -79,7 +89,10 @@
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
   -->
+  <UsingTask TaskName="WATKIt.Build.WATKitBuildTask" AssemblyFile="$(TargetDir)\WATKit.dll" />
+  <Target Name="AfterBuild">
+    <WATKitBuildTask TestAssembly="$(TargetDir)WATKit.Tests.dll" SourceAssemblies="$(SolutionDir)\WATKit.TestApp.WPF\bin\Debug\WATKit.TestApp.exe" />
+    <WATKitBuildTask TestAssembly="$(TargetDir)WATKit.Tests.dll" SourceAssemblies="$(SolutionDir)\WATKit.TestApp.WinForms\bin\Debug\WATKit.TestApp.exe" />
+  </Target>
 </Project>

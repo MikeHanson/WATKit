@@ -1,23 +1,23 @@
 ﻿using System;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using WATKit.Controls;
 
 namespace WATKit.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class AutomationControlTests
 	{
 		private static ApplicationUnderTest<Window> Aut;
 
-		[ClassInitialize]
-		public static void Initialise(TestContext context)
+		[TestFixtureSetUp]
+		public static void SetUp()
 		{
 			Aut = Fluently.Launch(Utility.GetApplicationPath()).WaitUntilMainWindowIsLoaded().WithDefaultMainWindow();
 		}
 
-		[ClassCleanup]
-		public static void CleanupClass()
+		[TestFixtureTearDown]
+		public static void TearDownClass()
 		{
 			if(Aut != null)
 			{
@@ -25,7 +25,7 @@ namespace WATKit.Tests
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void IsEnabledPropertyIsTrueForButtonWithAutomationId()
 		{
 			var result = Aut.MainWindow.FindControl().WithId(Utility.ButtonWithAutomationId).IncludeDescendants().Now().AsDefault();
@@ -33,7 +33,7 @@ namespace WATKit.Tests
 			result.IsEnabled.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Test]
 		public void IsEnabledPropertyIsFalseForDisabledButton()
 		{
 			var result = Aut.MainWindow.FindControl().WithId(Utility.DisabledButtonId).IncludeDescendants().Now().AsDefault();
@@ -41,7 +41,7 @@ namespace WATKit.Tests
 			result.IsEnabled.Should().BeFalse();
 		}
 
-		[TestMethod]
+		[Test]
 		public void AsDefaultReturnsRealControlForButtonWithName()
 		{
 			var result = Aut.MainWindow.FindControl().WithId(Utility.ButtonWithName).IncludeDescendants().Now().AsDefault();
@@ -50,7 +50,7 @@ namespace WATKit.Tests
 			result.FindSettings.IsOwnerProxy.Should().BeFalse();
 		}
 
-		[TestMethod]
+		[Test]
 		public void AsDefaultReturnsProxyForNonExistentButton()
 		{
 			var result = Aut.MainWindow.FindControl().WithId(Utility.MissingButtonId).IncludeDescendants().Now().AsDefault();
@@ -60,7 +60,7 @@ namespace WATKit.Tests
 			result.IsProxy.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Test]
 		public void AsReturnsRealControlForButtonWithName()
 		{
 			var result = Aut.MainWindow.FindControl().WithId(Utility.ButtonWithName).IncludeDescendants().Now().As<Button>();
@@ -70,7 +70,7 @@ namespace WATKit.Tests
 			result.FindSettings.IsOwnerProxy.Should().BeFalse();
 		}
 
-		[TestMethod]
+		[Test]
 		public void AsReturnsProxyForNonExistentButton()
 		{
 			var result = Aut.MainWindow.FindControl().WithId(Utility.MissingButtonId).IncludeDescendants().Now().As<Button>();

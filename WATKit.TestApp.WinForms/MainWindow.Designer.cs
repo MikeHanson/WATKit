@@ -38,6 +38,9 @@ namespace WATKit.TestApp
 			this.IChangeMyNameButton = new System.Windows.Forms.Button();
 			this.ShowInvisibleButton = new System.Windows.Forms.Button();
 			this.AddDynamicButton = new System.Windows.Forms.Button();
+			this.TextBoxWithName = new System.Windows.Forms.TextBox();
+			this.PasswordBoxWithName = new System.Windows.Forms.TextBox();
+			this.OpenChildWindowButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// ButtonWithName
@@ -118,11 +121,39 @@ namespace WATKit.TestApp
 			this.AddDynamicButton.UseVisualStyleBackColor = true;
 			this.AddDynamicButton.Click += new System.EventHandler(this.AddDynamicButton_Click);
 			// 
+			// TextBoxWithName
+			// 
+			this.TextBoxWithName.Location = new System.Drawing.Point(12, 214);
+			this.TextBoxWithName.Name = "TextBoxWithName";
+			this.TextBoxWithName.Size = new System.Drawing.Size(132, 20);
+			this.TextBoxWithName.TabIndex = 8;
+			// 
+			// PasswordBoxWithName
+			// 
+			this.PasswordBoxWithName.Location = new System.Drawing.Point(12, 240);
+			this.PasswordBoxWithName.Name = "PasswordBoxWithName";
+			this.PasswordBoxWithName.Size = new System.Drawing.Size(132, 20);
+			this.PasswordBoxWithName.TabIndex = 9;
+			this.PasswordBoxWithName.UseSystemPasswordChar = true;
+			// 
+			// OpenChildWindowButton
+			// 
+			this.OpenChildWindowButton.Location = new System.Drawing.Point(150, 12);
+			this.OpenChildWindowButton.Name = "OpenChildWindowButton";
+			this.OpenChildWindowButton.Size = new System.Drawing.Size(132, 23);
+			this.OpenChildWindowButton.TabIndex = 10;
+			this.OpenChildWindowButton.Text = "Open Child Window";
+			this.OpenChildWindowButton.UseVisualStyleBackColor = true;
+			this.OpenChildWindowButton.Click += new System.EventHandler(this.OpenChildWindowButton_Click);
+			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(459, 381);
+			this.Controls.Add(this.OpenChildWindowButton);
+			this.Controls.Add(this.PasswordBoxWithName);
+			this.Controls.Add(this.TextBoxWithName);
 			this.Controls.Add(this.AddDynamicButton);
 			this.Controls.Add(this.ShowInvisibleButton);
 			this.Controls.Add(this.IChangeMyNameButton);
@@ -135,6 +166,7 @@ namespace WATKit.TestApp
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "WATKit Test Application";
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -148,6 +180,9 @@ namespace WATKit.TestApp
 		private Button IChangeMyNameButton;
 		private Button ShowInvisibleButton;
 		private Button AddDynamicButton;
+		private TextBox TextBoxWithName;
+		private TextBox PasswordBoxWithName;
+		private Button OpenChildWindowButton;
 	}
 }
 

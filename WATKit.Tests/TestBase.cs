@@ -1,20 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using NUnit.Framework;
 using WATKit.Controls;
+using WATKit.Tests.Controls;
 
 namespace WATKit.Tests
 {
+	[TestFixture]
 	public abstract class TestBase
 	{
-		protected ApplicationUnderTest<Window> Aut;
+		protected ApplicationUnderTest<MainWindow> Aut;
 
-		protected void Initialise()
+		/// <summary>
+		/// SetUps this instance.
+		/// </summary>
+		[SetUp]
+		protected void BaseSetUp()
 		{
-			this.Aut = Fluently.Launch(Utility.GetApplicationPath()).WaitUntilMainWindowIsLoaded().WithDefaultMainWindow();
+			this.Aut = Fluently.Launch(Utility.GetApplicationPath()).WaitUntilMainWindowIsLoaded().WithMainWindowAs<MainWindow>();
 		}
 
-		protected void Cleanup()
+		/// <summary>
+		/// TearDowns this instance.
+		/// </summary>
+		[TearDown]
+		protected void BaseTearDown()
 		{
 			if(this.Aut != null)
 			{

@@ -1,43 +1,31 @@
 ﻿using System;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace WATKit.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class WindowTests: TestBase
 	{
-		[TestInitialize]
-		public void Initialise()
-		{
-			base.Initialise();
-		}
-
-		[TestCleanup]
-		public void Cleanup()
-		{
-			base.Cleanup();
-		}
-
-		[TestMethod]
+		[Test]
 		public void WindowIsAvailableReturnsTrueAfterLaunch()
 		{
 			this.Aut.MainWindow.IsAvailable.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Test]
 		public void WindowIsModalReturnsFalseAfterLaunch()
 		{
 			this.Aut.MainWindow.IsModal.Should().BeFalse();
 		}
 
-		[TestMethod]
+		[Test]
 		public void WindowIsVisibleReturnsTrueAfterLaunch()
 		{
 			this.Aut.MainWindow.IsVisible.Should().BeTrue();
 		}
 
-		[TestMethod]
+		[Test]
 		public void WindowNameReturnsTitleOfTestApp()
 		{
 			this.Aut.MainWindow.Name.Should().Be(Utility.ApplicationTitle);

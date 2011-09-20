@@ -43,5 +43,10 @@ namespace WATKit.TestApp
 				Width = this.DisabledButton.Width
 			});
 		}
+
+		private void OpenChildWindowButton_Click(object sender, EventArgs e)
+		{
+			new ChildWindow().ShowDialog(this);
+		}
 	}
 }

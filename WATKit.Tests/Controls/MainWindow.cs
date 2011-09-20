@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using WATKit.Build;
 using WATKit.Controls;
 
@@ -58,5 +56,10 @@ namespace WATKit.Tests.Controls
 		/// Gets the button that adds new button dynamically.
 		/// </summary>
 		public Button AddDynamicButton { get { return this.FindControl().IncludeDescendants().WithId(Utility.AddDynamicButtonId).As<Button>(); } }
+
+		/// <summary>
+		/// Gets the button that will open a child window.
+		/// </summary>
+		public Button OpenChildWindowButton { get { return this.FindControl().IncludeDescendants().WithId(Utility.OpenChildWindowButton).As<Button>(); } }
 	}
 }

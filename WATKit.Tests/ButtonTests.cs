@@ -1,26 +1,14 @@
 ﻿using System;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using WATKit.Controls;
 
 namespace WATKit.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class ButtonTests: TestBase
 	{
-		[TestInitialize]
-		public void Initialise()
-		{
-			base.Initialise();
-		}
-
-		[TestCleanup]
-		public void Cleanup()
-		{
-			base.Cleanup();
-		}
-
-		[TestMethod]
+		[Test]
 		public void ButtonClickIsInvokedOnButtonThatChangesContent()
 		{
 			var result = this.Aut.MainWindow.FindControl().WithId(Utility.IChangeMyNameButtonId).IncludeDescendants().Now().As<Button>();
